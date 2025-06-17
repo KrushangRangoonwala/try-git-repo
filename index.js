@@ -7,3 +7,5 @@ console.log("branch : hii huu haa");
 console.log("branch : gii guu gaa");
 console.log("branch : aii auu aaa");
 console.log("branch : yii yuu yaa");
+
+console.log("branch : another message");
