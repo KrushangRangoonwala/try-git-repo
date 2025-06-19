@@ -42,20 +42,9 @@ Git operates in three stages: **file updated → staged → committed**
 3. File committed
 
 ---
-
-> ### If we made changes without staging or committing anything and want to return to the original cloned state
-
-### Restore original version of file
-
-`git restore .` : *(Modified files are reverted to the latest committed version)*
-- Restores modified files (discard modification of updated files)
-- Keeps new/untracked files
-- Keeps staged changes untouched
-
-`git restore <file_name>` : 
-Discard all modified files (restores them to original state)
-
----
+- `git clean -f` Delete all untracked files
+- `git clean -fd` Delete all untracked folders
+<br>
 
 ### Committing Changes
 
@@ -74,6 +63,18 @@ Discard all modified files (restores them to original state)
 - `git show <short_commit_id>`: Shows changes made in a specific commit.
 - `git blame <file_path>`: Displays Commit ID, author, and date for each line in a file.
 
+---
+<br>
+
+`git restore .` : *(Modified files are reverted to the latest committed version)*
+- Restores modified files (discard modification of updated files)
+- Keeps new/untracked files
+- Keeps staged changes untouched
+
+`git restore <file_name>` : 
+Discard all modified files (restores them to original state)
+<br>
+
 ## Resetting and Reverting Commits
 
 
@@ -86,16 +87,15 @@ Discard all modified files (restores them to original state)
 
 - `git reset --hard <commit_id>`: Moves the HEAD to the specified commit, deleting all subsequent commits. *Warning*: These commits cannot be recovered.
 
-- `git revert <commit_id>`: Reverts changes made in the specified commit (undoes additions, restores deletions). The reverted changes can be staged and committed as a new commit.
-
-
   | Feature	| git reset --hard	| git restore . |
   | --- | --- | --- |
   | Discards modified files	| ✅	| ✅ |
   | Discards staged changes	| ✅	| ❌ |
   | Deletes new files	| ✅ (with git clean) |	❌ |
   | Safe to use	⚠️ (dangerous) |	✅ | (safe) |
+<br>
 
+- `git revert <commit_id>`: Reverts changes made in the specified commit (undoes additions, restores deletions). The reverted changes can be staged and committed as a new commit.
 
 ## Remote Repositories
 
@@ -114,7 +114,7 @@ Discard all modified files (restores them to original state)
 
 - `git push`: Pushes the current branch to the remote repository.
 
-- `git push origin <branch-name>`: Pushes a specific branch to the remote repository.\
+- `git push origin <branch-name>`: Pushes specified branch on remote repository.
   Example:
 
   ```bash
@@ -128,27 +128,13 @@ Discard all modified files (restores them to original state)
   ```
 
 ## Branch Management
-
-- `git branch`: Lists all branches. Example output:
-
-  ```
-  branch-1
-  branch-2
-  main
-  ```
-
-- `git branch <new-branch-name>`: Creates a new branch.
-
-- `git checkout <branch-name>`: Switches to the specified branch.\
-  Example:
-
-  ```bash
-  git checkout branch-1
-  ```
-
-- `git checkout -b <new-branch-name>`: Creates and switches to a new branch in one step.
-
-- `git branch -M <new-branch-name>`: Renames the current branch.
+  | cmd | uses |
+  | --- | --- |
+  | `git branch`|  Lists all branches. | 
+  | `git branch <new-branch-name>`|  Creates a new branch.| 
+  | `git checkout <branch-name>`|  Switches to the specified branch.| 
+  | `git checkout -b <new-branch-name>`|  Creates and switches to a new branch in one step.| 
+  | `git branch -M <new-branch-name>`|  Renames the current branch.| 
 
 - *Note*: To update branches on GitHub, push them using `git push`.
 
@@ -162,14 +148,50 @@ Discard all modified files (restores them to original state)
 
   Merges `other-branch-name` from the `origin` server into the current branch.
 
-- **Using GitHub**: Create a pull request to merge branches. To bring merged files to your local repository, use:
+- **Using GitHub** : Create a pull request to merge branches. 
 
-  ```bash
-  git pull
-  ```
+  To bring merged files to your local repository, use:
 
-## Setting Up SSH Key for GitHub
+    ```bash
+    git pull
+    ```
 
+### clone repo
+```bash
+git clone <HTTPS / SSH >
+git clone https://github.com/username/repo-name.git
+```
+
+## Fork repository
+**What is a Fork in GitHub?**
+
+A fork is your own copy of someone else's repository under your GitHub account.
+
+Think of it like :
+*"Copy this repo to my GitHub so I can work on it independently."*
+
+- After made changes in forked repo,
+- Now, we want original repo owner accpect our changes
+- For this, click on `Compare and Pull request` button in that repo on `github`
+- Below screen will shown
+
+![alt text](image.png)
+
+
+## SSH key for github account
+
+- When we push on a particular repo, 
+- Github checks that, `Is local pc's SSH key match with the github account on which the repo exist`
+- if **yes** then push is succeed
+
+
+  | que | ans |
+  | --- | --- |
+  | Where to add SSH key? | ✅ Your GitHub Account |
+  | Add per repository? | ❌ No |
+  | Benefit | Access to all your GitHub repos without login prompts |
+
+### Setting Up SSH Key for GitHub
 1. **Check for existing SSH keys**:
 
    ```bash
@@ -183,6 +205,9 @@ Discard all modified files (restores them to original state)
    ```bash
    ssh-keygen -t ed25519 -C "your_email@example.com"
    ```
+    It will give two keys.
+    - *Public* SSH key
+    - *Private* SSH key
 
 3. **Add SSH key to GitHub**:
 
@@ -191,7 +216,6 @@ Discard all modified files (restores them to original state)
   ```bash
   clip < ~/.ssh/id_ed25519.pub
   ```
+-  Now, open GitHub → Your Account Settings → SSH and GPG Keys → New SSh key  →  paste public key
 
-# Follow GitHub’s instructions to add the key to your account:\\
-
-1. Adding a new SSH key to your GitHub account
+**Note : SSH key simply meant `That PC have authority to work with that github account`**
