@@ -131,6 +131,7 @@ Discard all modified files (restores them to original state)
   | cmd | uses |
   | --- | --- |
   | `git branch`|  Lists all branches. | 
+  | `git branch -a`|  Lists all branches. | 
   | `git branch <new-branch-name>`|  Creates a new branch.| 
   | `git checkout <branch-name>`|  Switches to the specified branch.| 
   | `git checkout -b <new-branch-name>`|  Creates and switches to a new branch in one step.| 
@@ -156,7 +157,7 @@ Discard all modified files (restores them to original state)
     git pull
     ```
 
-### clone repo
+### Clone repo
 ```bash
 git clone <HTTPS / SSH >
 git clone https://github.com/username/repo-name.git
